@@ -1,10 +1,10 @@
 <?php
 
-class AccountController extends BaseController {
+class UserController extends BaseController {
     private $db;
 
     public function onInit() {
-        $this->db = new AccountModel();
+        $this->db = new UserModel();
     }
 
     public function register(){
@@ -15,15 +15,15 @@ class AccountController extends BaseController {
 
             if($username == null || strlen($username) < 3) {
                 $this->addErrorMessage('Username is invalid!');
-                $this->redirect('account', 'register');
+                $this->redirect('user', 'register');
             }
             if($password == null || strlen($password) < 3) {
                 $this->addErrorMessage('Password is invalid!');
-                $this->redirect('account', 'register');
+                $this->redirect('user', 'register');
             }
             if($email == null || strlen($email) < 8) {
                 $this->addErrorMessage('Email is invalid!');
-                $this->redirect('account', 'register');
+                $this->redirect('user', 'register');
             }
 
             $isRegistered = $this->db->register($username, $password, $email);

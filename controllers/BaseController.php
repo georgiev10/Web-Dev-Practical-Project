@@ -69,7 +69,7 @@ abstract class BaseController {
     public function authorise(){
         if(!$this->isLoggedIn){
             $this->addErrorMessage('Please login first.');
-            $this->redirect('account', 'login');
+            $this->redirect('user', 'login');
         }
     }
 

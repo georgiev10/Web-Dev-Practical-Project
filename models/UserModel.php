@@ -1,6 +1,6 @@
 <?php
 
-class AccountModel extends BaseModel {
+class UserModel extends BaseModel {
 
     public function register($username, $password, $email){
         $statement = self::$db->prepare('SELECT COUNT(Id) FROM users WHERE username = ?');
