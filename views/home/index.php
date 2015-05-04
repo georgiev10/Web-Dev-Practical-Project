@@ -1,17 +1,22 @@
-<h1>Welcome to Home.</h1>
-<a href="/user/login">Login</a>
-<a href="/user/register">Register</a>
+<?php if(!$this->isLoggedIn) :?>
+        <a href="/user/login">Login</a>
+        <a href="/user/register">Register</a>
+<?php endif ?>
 
-<button id="show-books">Show books</button>
-<div id="books"></div>
-<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-<script>
-    $('#show-books').on('click', function(event) {
-        $.ajax({
-            url: '/books/showBooks',
-            method: 'GET'
-        }).success(function(data){
-            $('#books').html(data);
-        })
-    })
-</script>
+<h3>Last posts</h3>
+
+<?php foreach($this->posts as $post) : ?>
+    <div>
+        <a href="/post/index/<?=$post['0']?>" ><?= htmlspecialchars($post['1'])?></a>
+        <br/>
+        from : <?= htmlspecialchars($post['3']) ?>
+        <br/>
+        <?= htmlspecialchars($post['2']) ?>
+    </div>
+<?php endforeach ?>
+<a href='/home/index/<?=$this->page<=0 ? $this->page=0 : $this->page - 1?>/<?= $this->pageSize ?>'>Previous</a>
+<a href='/home/index/<?= $this->posts==null ? $this->page=$this->page :  $this->page + 1 ?>/<?= $this->pageSize ?>'>Next</a>
+
+
+
+
