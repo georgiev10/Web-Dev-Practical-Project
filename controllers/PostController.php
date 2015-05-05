@@ -12,4 +12,10 @@ class PostController extends BaseController {
         $this->post = $this->db->getPostById($id);
         $this->renderView();
     }
+
+
+
+
+
+
 }

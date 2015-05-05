@@ -14,7 +14,7 @@ visits: <?= htmlspecialchars($this->post[0][4]) ?>
 
 <button id="show-comments">Show comments</button>
 
-<a href="/comments/create"><button>Add comments</button></a>
+<a href="/comments/create/<?=$this->post[0][0]?>"><button>Add comments</button></a>
 
 <div id="comments"></div>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>

@@ -9,4 +9,21 @@ class CommentsModel extends BaseModel{
         return $result;
     }
 
+    public function createCommentFromUser($content, $user_id, $post_id) {
+        $statement = self::$db->prepare(
+            "INSERT INTO comments VALUES(NULL, ?, ?, NULL, NULL, ?, ?)");
+        $statement->bind_param("ssii", $content, date("Y-m-d H:i:s"), $user_id, $post_id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
+    public function createCommentFromVisitor($content, $visitor_name, $visitor_email, $post_id){
+        $statement = self::$db->prepare(
+            "INSERT INTO comments VALUES(NULL, ?, ?, ?, ?, NULL, ?)");
+        $statement->bind_param("ssssi", $content, date("Y-m-d H:i:s"),
+                                        $visitor_name, $visitor_email , $post_id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
 }

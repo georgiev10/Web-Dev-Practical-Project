@@ -31,4 +31,11 @@ class UserModel extends BaseModel {
         return false;
     }
 
+    public function getUserId($username) {
+        $statement = self::$db->prepare('SELECT id FROM users WHERE username = ?');
+        $statement->bind_param('s', $username);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
+        return $result['id'];
+    }
 }

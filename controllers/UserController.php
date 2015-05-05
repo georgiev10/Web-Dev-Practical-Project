@@ -29,6 +29,7 @@ class UserController extends BaseController {
             $isRegistered = $this->db->register($username, $password, $email);
             if($isRegistered){
                 $_SESSION['username'] = $username;
+                $_SESSION['user_id'] = $this->db->getUserId($username);
                 $this->addInfoMessage('Successful registration.');
                 $this->redirect('home', 'index');
             }else{
@@ -45,6 +46,7 @@ class UserController extends BaseController {
             $isLoggedIn = $this->db->login($username, $password);
             if($isLoggedIn) {
                 $_SESSION['username'] = $username;
+                $_SESSION['user_id'] = $this->db->getUserId($username);
                 $this->addInfoMessage('Successful login.');
                 return $this->redirect('home', 'index');
             }
@@ -58,6 +60,7 @@ class UserController extends BaseController {
     public function logout(){
         $this->authorise();
         unset($_SESSION['username']);
+        unset($_SESSION['user_id']);
         $this->addInfoMessage('Successful logout.');
         $this->redirect('home', 'index');
     }
