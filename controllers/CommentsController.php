@@ -13,14 +13,14 @@ class CommentsController extends BaseController{
 
     public function create($post_id) {
         if($this->isPost){
-            $comment = $_POST['comment'];
-            if($comment == null) {
+            $content = $_POST['content'];
+            if($content == null) {
                 $this->addErrorMessage("Error creating comment.");
                 return $this->renderView('create');
             }
             if($this->isLoggedIn){
                 $user_id = $_SESSION['user_id'];
-                if($this->db->createCommentFromUser($comment, $user_id, $post_id)) {
+                if($this->db->createCommentFromUser($content, $user_id, $post_id)) {
                     $this->addInfoMessage("Comment created successfully.");
                     $this->redirectToUrl('/post/index/' . $post_id);
                 }else{
@@ -35,7 +35,7 @@ class CommentsController extends BaseController{
                     return $this->renderView('create');
                 }
                 $visitor_email = $_POST['visitor-email'];
-                if($this->db->createCommentFromVisitor($comment, $visitor_name, $visitor_email, $post_id)) {
+                if($this->db->createCommentFromVisitor($content, $visitor_name, $visitor_email, $post_id)) {
                     $this->addInfoMessage("Comment created successfully.");
                     $this->redirectToUrl('/post/index/' . $post_id);
                 }else{

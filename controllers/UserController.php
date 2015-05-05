@@ -43,10 +43,11 @@ class UserController extends BaseController {
         if($this->isPost) {
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $isLoggedIn = $this->db->login($username, $password);
-            if($isLoggedIn) {
+            $result = $this->db->login($username, $password);
+            if($result) {
                 $_SESSION['username'] = $username;
-                $_SESSION['user_id'] = $this->db->getUserId($username);
+                $_SESSION['user_id'] = $result['Id'];
+                $_SESSION['isAdmin'] = $result['is_admin'];
                 $this->addInfoMessage('Successful login.');
                 return $this->redirect('home', 'index');
             }

@@ -19,13 +19,13 @@ class UserModel extends BaseModel {
     }
 
     public function login($username, $password){
-        $statement = self::$db->prepare('SELECT Id, username, passwordHash FROM users WHERE username = ?');
+        $statement = self::$db->prepare('SELECT Id, username, passwordHash, is_admin FROM users WHERE username = ?');
         $statement->bind_param('s', $username);
         $statement->execute();
         $result = $statement->get_result()->fetch_assoc();
         $password_check =  password_verify($password, $result['passwordHash']);
         if($password_check){
-            return true;
+            return $result;
         }
 
         return false;

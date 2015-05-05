@@ -8,6 +8,7 @@ abstract class BaseController {
     protected $isLoggedIn = false;
     protected $validationError;
     protected $formValues;
+    protected $isAdmin = false;
 
     function __construct($controllerName){
         $this->controllerName = $controllerName;
@@ -18,6 +19,10 @@ abstract class BaseController {
 
         if (isset($_SESSION['username'])) {
             $this->isLoggedIn = true;
+        }
+
+        if(isset($_SESSION['isAdmin']) && $_SESSION['isAdmin']==1){
+            $this->isAdmin = true;
         }
 
         $this->onInit();

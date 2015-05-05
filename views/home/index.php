@@ -2,6 +2,9 @@
         <a href="/user/login">Login</a>
         <a href="/user/register">Register</a>
 <?php endif ?>
+<?php if($this->isLoggedIn) :?>
+    <a href="/post/create">Create a new Post</a>
+<?php endif ?>
 
 <h3>Last posts</h3>
 

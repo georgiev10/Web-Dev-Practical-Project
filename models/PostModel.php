@@ -15,4 +15,20 @@ class PostModel extends BaseModel{
         return $result;
     }
 
+    public function createPost($title, $content, $user_id) {
+        $statement = self::$db->prepare(
+            "INSERT INTO posts VALUES(NULL, ?, ?, ?, ?, ? )");
+        $visits = 0;
+        $statement->bind_param("sssii", $title, date("Y-m-d H:i:s"), $content, $user_id, $visits);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
+    public function updateVisits($post_id, $visits) {
+        $statement = self::$db->prepare("UPDATE posts SET visit=? WHERE id = ?");
+        $statement->bind_param("ii", $visits, $post_id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
 }
