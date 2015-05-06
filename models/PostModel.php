@@ -31,4 +31,12 @@ class PostModel extends BaseModel{
         return $statement->affected_rows > 0;
     }
 
+    public function editPost($title, $content, $post_id ) {
+        $statement = self::$db->prepare(
+            "UPDATE posts SET title = ?, content = ? WHERE id = ?");
+        $statement->bind_param("ssi", $title, $content, $post_id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
 }

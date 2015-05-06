@@ -16,6 +16,13 @@ visits: <?= htmlspecialchars($this->post[0][4]) ?>
 
 <a href="/comments/create/<?=$this->post[0][0]?>"><button>Add comments</button></a>
 
+<?php
+$loggedUsername = $_SESSION['username'];
+$postOwner = $this->post[0][5];
+if($loggedUsername == $postOwner || $this->isAdmin) :?>
+    <a href="/post/edit/<?=$this->post[0][0]?>"><button>Edit</button></a>
+<?php endif ?>
+
 <div id="comments"></div>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script>

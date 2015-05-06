@@ -78,9 +78,9 @@ abstract class BaseController {
         }
     }
 
-    public function administrate(){
+    public function admin(){
         if(!$this->isAdmin){
-            $this->addErrorMessage('Please login with administrative permission!');
+            $this->addErrorMessage('You don\'t have a administrative permission!');
             $this->redirect('user', 'login');
         }
     }

@@ -21,8 +21,14 @@ class PostController extends BaseController {
             $user_id = $_SESSION['user_id'];
             $title = $_POST['title'];
             $content = $_POST['content'];
+            $tags = preg_split("/[\s,]+/", $_POST['tags'], -1, PREG_SPLIT_NO_EMPTY);
             if($content == null) {
-                $this->addErrorMessage("Error creating post.");
+                $this->addErrorMessage("Error creating post. Enter a content!");
+                return $this->renderView('create');
+            }
+            $tagsNumber = count($tags);
+            if($tagsNumber<1) {
+                $this->addErrorMessage("Error creating post. Enter a tag!");
                 return $this->renderView('create');
             }
             if(strlen($title)<=2) {
@@ -39,6 +45,31 @@ class PostController extends BaseController {
         }
 
         $this->renderView('create');
+    }
+
+    public function edit($post_id) {
+        $this->admin();
+        if($this->isPost){
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            if($content == null) {
+                $this->addErrorMessage("Error editing post.");
+                return $this->renderView('edit');
+            }
+            if(strlen($title)<=2) {
+                $this->addFieldValue('title', $title);
+                $this->addValidationError('title', 'The title length should be greater than 2!');
+                return $this->renderView('create');
+            }
+            if($this->db->editPost($title, $content, $post_id )) {
+                $this->addInfoMessage("Post edited successfully.");
+                $this->redirectToUrl('/post/index/' . $post_id);
+            }else{
+                $this->addErrorMessage("Error editing post.");
+            }
+        }
+
+        $this->renderView('edit');
     }
 
 
