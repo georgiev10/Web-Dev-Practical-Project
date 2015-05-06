@@ -96,13 +96,30 @@ class PostController extends BaseController {
         $this->renderView('edit');
     }
 
+    public function deleteConfirm(){
+        $this->admin();
+        $this->renderView('deleteConfirm');
+    }
+
+    public function delete($post_id){
+        $this->admin();
+        $this->db->deleteCommentsByPostId($post_id);
+        $this->db->deleteTagsFromPost($post_id);
+        if ($this->db->deletePost($post_id)) {
+            $this->addInfoMessage("Post deleted successfully.");
+            $this->redirectToUrl('/');
+        } else {
+            $this->addErrorMessage("Error deleting post.");
+        }
+    }
+
     public function insertTags($tags, $post_id){
         foreach($tags as $tag){
             $idExistingTag = $this->db->getIdExistingTag($tag);
             if($idExistingTag){
                 $tag_id = $idExistingTag;
             }else{
-                $tag_id = $this->db->insertTags($tag);
+                $tag_id = $this->db->insertTags(strtolower($tag));
             }
             $this->db->insertTagsByPost($tag_id, $post_id );
         }

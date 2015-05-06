@@ -28,6 +28,11 @@ if($loggedUsername == $postOwner || $this->isAdmin) :?>
     <a href="/post/edit/<?=$this->post[0][0]?>/<?=$postOwner?>"><button>Edit</button></a>
 <?php endif ?>
 
+<?php
+if($this->isAdmin) :?>
+    <a href="/post/deleteConfirm"><button>Delete</button></a>
+<?php endif ?>
+
 <div id="comments"></div>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script>

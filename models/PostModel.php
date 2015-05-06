@@ -86,4 +86,21 @@ class PostModel extends BaseModel{
         $statement->execute();
         return $statement->affected_rows > 0;
     }
+
+    public function deletePost($post_id){
+        $statement = self::$db->prepare("DELETE FROM posts WHERE id = ?");
+        $statement->bind_param("i", $post_id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
+    public function deleteCommentsByPostId($post_id){
+        $statement = self::$db->prepare("DELETE FROM comments WHERE post_id = ?");
+        $statement->bind_param("i", $post_id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
+
+
 }
