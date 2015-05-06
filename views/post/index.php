@@ -16,13 +16,13 @@ Tags:
    <a href=""><?=htmlspecialchars($tag[0]) ?></a>
 <?php endforeach ?>
 <br/>
-
-<button id="show-comments">Show comments</button>
-
 <a href="/comments/create/<?=$this->post[0][0]?>"><button>Add comments</button></a>
-
 <?php
-$loggedUsername = $_SESSION['username'];
+if(isset($_SESSION['username'])){
+    $loggedUsername = $_SESSION['username'];
+}else{
+    $loggedUsername='';
+}
 $postOwner = $this->post[0][5];
 if($loggedUsername == $postOwner || $this->isAdmin) :?>
     <a href="/post/edit/<?=$this->post[0][0]?>/<?=$postOwner?>"><button>Edit</button></a>
@@ -32,16 +32,26 @@ if($loggedUsername == $postOwner || $this->isAdmin) :?>
 if($this->isAdmin) :?>
     <a href="/post/deleteConfirm"><button>Delete</button></a>
 <?php endif ?>
+<br/>
+Comments:
 
-<div id="comments"></div>
-<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-<script>
-    $('#show-comments').on('click', function(event) {
-        $.ajax({
-            url: '/comments/showComments/<?=$this->post[0][0]?>',
-            method: 'GET'
-        }).success(function(data){
-            $('#comments').html(data);
-        })
-    })
-</script>
+<?php foreach($this->comments as $comment) :?>
+
+    <?php var_dump($comment)?>
+
+    <p><?= htmlspecialchars($comment[1]) ?></p>
+    Comment by <?= htmlspecialchars($this->post[0][5]) ?> at <?= htmlspecialchars($this->post[0][3]) ?>
+
+<?php endforeach ?>
+
+
+
+
+
+
+
+
+
+
+
+

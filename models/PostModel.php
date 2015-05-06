@@ -2,14 +2,32 @@
 
 class PostModel extends BaseModel{
 
-    public function getPostById($id) {
+    public function getPostById($post_id) {
         $statement = self::$db->prepare("
           SELECT p.id, p.title, p.content, p.date, p.visit, u.username
           FROM posts p
           INNER JOIN users u ON p.user_id = u.id
           WHERE p.id=?"
         );
-        $statement->bind_param("i", $id);
+        $statement->bind_param("i", $post_id);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_all();
+        return $result;
+    }
+
+    public function getAllCommentsByPostId($post_id){
+        //TODO да се сортират в контролера по дата
+        $statement = self::$db->prepare("
+          SELECT c.id, c.content, c.date, c.visitor_name, c.visitor_email, u.username
+          FROM comments c
+          INNER JOIN users u ON c.user_id = u.id
+          WHERE c.post_id=?
+          UNION
+          SELECT c.id, c.content, c.date, c.visitor_name, c.visitor_email, c.user_id
+          FROM comments c
+          WHERE c.user_id is null and c.post_id=?"
+        );
+        $statement->bind_param("ii", $post_id, $post_id);
         $statement->execute();
         $result = $statement->get_result()->fetch_all();
         return $result;

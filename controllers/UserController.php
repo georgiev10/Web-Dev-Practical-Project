@@ -64,6 +64,7 @@ class UserController extends BaseController {
         unset($_SESSION['user_id']);
         unset($_SESSION['post']);
         unset($_SESSION['tags']);
+        unset($_SESSION['comments']);
         $this->addInfoMessage('Successful logout.');
         $this->redirect('home', 'index');
     }

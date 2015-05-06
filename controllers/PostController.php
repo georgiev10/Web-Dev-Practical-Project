@@ -11,12 +11,14 @@ class PostController extends BaseController {
     public function index($id) {
         $this->post = $this->db->getPostById($id);
         $this->tags = $this->db->getTagsByPostId($id);
+        $this->comments = $this->db->getAllCommentsByPostId($id);
 
         $owner_username = $this->post[0][5];
         if($this->isAdmin || $owner_username == $_SESSION['username']){
            $_SESSION['post']=$this->post;
-           $_SESSION['tags']=$this->tags;
+           $_SESSION['tags']=$this->tags;           
         }
+        $_SESSION['comments']=$this->comments;
 
         $visits =  $this->post[0][4] + 1;
         $this->db->updateVisits($id, $visits);
