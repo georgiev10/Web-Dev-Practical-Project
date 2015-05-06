@@ -36,7 +36,7 @@ class PostModel extends BaseModel{
             "UPDATE posts SET title = ?, content = ? WHERE id = ?");
         $statement->bind_param("ssi", $title, $content, $post_id);
         $statement->execute();
-        return $statement->affected_rows > 0;
+        return true;// $statement->affected_rows > 0;
     }
 
     public function getIdExistingTag($tag){
@@ -46,7 +46,7 @@ class PostModel extends BaseModel{
         $statement->bind_param("s", $tag);
         $statement->execute();
         $result = $statement->get_result()->fetch_all();
-        return $result[0];
+        return $result[0][0];
     }
 
     public function insertTags($tag) {
@@ -80,8 +80,10 @@ class PostModel extends BaseModel{
         return $result;
     }
 
-
-
-
-
+    public function deleteTagsFromPost($post_id){
+        $statement = self::$db->prepare("DELETE FROM posts_tags WHERE post_id = ?");
+        $statement->bind_param("i", $post_id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
 }

@@ -11,6 +11,13 @@ class PostController extends BaseController {
     public function index($id) {
         $this->post = $this->db->getPostById($id);
         $this->tags = $this->db->getTagsByPostId($id);
+
+        $owner_username = $this->post[0][5];
+        if($this->isAdmin || $owner_username == $_SESSION['username']){
+           $_SESSION['post']=$this->post;
+           $_SESSION['tags']=$this->tags;
+        }
+
         $visits =  $this->post[0][4] + 1;
         $this->db->updateVisits($id, $visits);
         $this->renderView();
@@ -51,21 +58,34 @@ class PostController extends BaseController {
         $this->renderView('create');
     }
 
-    public function edit($post_id) {
-        $this->admin();
+    public function edit($post_id, $owner_username) {
+        if(!$this->isAdmin && $owner_username != $_SESSION['username']){
+            $this->redirectToUrl('/post/index/' . $post_id);
+        }
         if($this->isPost){
             $title = $_POST['title'];
             $content = $_POST['content'];
+            $tags = preg_split("/[\s,]+/", $_POST['tags'], -1, PREG_SPLIT_NO_EMPTY);
             if($content == null) {
                 $this->addErrorMessage("Error editing post.");
+                return $this->renderView('edit');
+            }
+            $tagsNumber = count($tags);
+            if($tagsNumber<1) {
+                $this->addErrorMessage("Error editing post. Enter a tag!");
                 return $this->renderView('edit');
             }
             if(strlen($title)<=2) {
                 $this->addFieldValue('title', $title);
                 $this->addValidationError('title', 'The title length should be greater than 2!');
-                return $this->renderView('create');
+                return $this->renderView('edit');
             }
+
             if($this->db->editPost($title, $content, $post_id )) {
+                $this->db->deleteTagsFromPost($post_id);
+                $this->insertTags($tags, $post_id);
+                unset($_SESSION['post']);
+                unset($_SESSION['tags']);
                 $this->addInfoMessage("Post edited successfully.");
                 $this->redirectToUrl('/post/index/' . $post_id);
             }else{

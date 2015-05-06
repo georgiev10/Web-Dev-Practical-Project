@@ -1,7 +1,6 @@
 <h1><?= htmlspecialchars($this->title) ?></h1>
 
-<?php var_dump($this->post)?>
-
+<?php //var_dump($this->post)?>
 
 <h3><?= htmlspecialchars($this->post[0][1]) ?></h3>
 
@@ -11,9 +10,12 @@ Posted by <?= htmlspecialchars($this->post[0][5]) ?> at <?= htmlspecialchars($th
 
 visits: <?= htmlspecialchars($this->post[0][4]) ?>
 
-
-<?php var_dump($this->tags)?>
-
+<br/>
+Tags:
+<?php foreach($this->tags as $tag) :?>
+   <a href=""><?=htmlspecialchars($tag[0]) ?></a>
+<?php endforeach ?>
+<br/>
 
 <button id="show-comments">Show comments</button>
 
@@ -23,7 +25,7 @@ visits: <?= htmlspecialchars($this->post[0][4]) ?>
 $loggedUsername = $_SESSION['username'];
 $postOwner = $this->post[0][5];
 if($loggedUsername == $postOwner || $this->isAdmin) :?>
-    <a href="/post/edit/<?=$this->post[0][0]?>"><button>Edit</button></a>
+    <a href="/post/edit/<?=$this->post[0][0]?>/<?=$postOwner?>"><button>Edit</button></a>
 <?php endif ?>
 
 <div id="comments"></div>
