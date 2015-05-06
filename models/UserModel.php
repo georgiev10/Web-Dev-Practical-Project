@@ -15,7 +15,7 @@ class UserModel extends BaseModel {
         $registerStatement->bind_param('sss', $username, $hash_pass, $email);
         $registerStatement->execute();
 
-        return true;
+        return  self::$db->insert_id;
     }
 
     public function login($username, $password){
@@ -31,11 +31,4 @@ class UserModel extends BaseModel {
         return false;
     }
 
-    public function getUserId($username) {
-        $statement = self::$db->prepare('SELECT id FROM users WHERE username = ?');
-        $statement->bind_param('s', $username);
-        $statement->execute();
-        $result = $statement->get_result()->fetch_assoc();
-        return $result['id'];
-    }
 }

@@ -12,6 +12,9 @@ Posted by <?= htmlspecialchars($this->post[0][5]) ?> at <?= htmlspecialchars($th
 visits: <?= htmlspecialchars($this->post[0][4]) ?>
 
 
+<?php var_dump($this->tags)?>
+
+
 <button id="show-comments">Show comments</button>
 
 <a href="/comments/create/<?=$this->post[0][0]?>"><button>Add comments</button></a>

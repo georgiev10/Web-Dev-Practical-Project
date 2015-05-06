@@ -10,6 +10,7 @@ class PostController extends BaseController {
 
     public function index($id) {
         $this->post = $this->db->getPostById($id);
+        $this->tags = $this->db->getTagsByPostId($id);
         $visits =  $this->post[0][4] + 1;
         $this->db->updateVisits($id, $visits);
         $this->renderView();
@@ -36,7 +37,10 @@ class PostController extends BaseController {
                 $this->addValidationError('title', 'The title length should be greater than 2!');
                 return $this->renderView('create');
             }
-            if($this->db->createPost($title, $content, $user_id )) {
+
+            $post_id = $this->db->createPost($title, $content, $user_id );
+            if($post_id) {
+                $this->insertTags($tags, $post_id);
                 $this->addInfoMessage("Post created successfully.");
                 $this->redirectToUrl('/');
             }else{
@@ -70,6 +74,18 @@ class PostController extends BaseController {
         }
 
         $this->renderView('edit');
+    }
+
+    public function insertTags($tags, $post_id){
+        foreach($tags as $tag){
+            $idExistingTag = $this->db->getIdExistingTag($tag);
+            if($idExistingTag){
+                $tag_id = $idExistingTag;
+            }else{
+                $tag_id = $this->db->insertTags($tag);
+            }
+            $this->db->insertTagsByPost($tag_id, $post_id );
+        }
     }
 
 

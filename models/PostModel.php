@@ -21,7 +21,7 @@ class PostModel extends BaseModel{
         $visits = 0;
         $statement->bind_param("sssii", $title, date("Y-m-d H:i:s"), $content, $user_id, $visits);
         $statement->execute();
-        return $statement->affected_rows > 0;
+        return self::$db->insert_id;
     }
 
     public function updateVisits($post_id, $visits) {
@@ -38,5 +38,50 @@ class PostModel extends BaseModel{
         $statement->execute();
         return $statement->affected_rows > 0;
     }
+
+    public function getIdExistingTag($tag){
+        $statement = self::$db->prepare("
+          SELECT id FROM tags WHERE tag=?"
+        );
+        $statement->bind_param("s", $tag);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_all();
+        return $result[0];
+    }
+
+    public function insertTags($tag) {
+        $statement = self::$db->prepare(
+            "INSERT INTO tags VALUES(NULL, ?)");
+        $statement->bind_param("s", $tag);
+        $statement->execute();
+        return self::$db->insert_id;
+    }
+
+    public function insertTagsByPost($tag_id, $post_id ){
+        $statement = self::$db->prepare(
+            "INSERT INTO posts_tags VALUES(?, ?)");
+        $statement->bind_param("ii",$post_id, $tag_id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
+    public function getTagsByPostId($post_id)
+    {
+        $statement = self::$db->prepare("
+            SELECT t.tag
+            FROM posts_tags pt
+            JOIN tags t
+            ON t.id = pt.tag_id
+            WHERE pt.post_id = ? "
+        );
+        $statement->bind_param("i", $post_id);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_all();
+        return $result;
+    }
+
+
+
+
 
 }

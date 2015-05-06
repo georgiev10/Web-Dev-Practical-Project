@@ -26,10 +26,10 @@ class UserController extends BaseController {
                 $this->redirect('user', 'register');
             }
 
-            $isRegistered = $this->db->register($username, $password, $email);
-            if($isRegistered){
+            $isRegisteredId = $this->db->register($username, $password, $email);
+            if($isRegisteredId){
                 $_SESSION['username'] = $username;
-                $_SESSION['user_id'] = $this->db->getUserId($username);
+                $_SESSION['user_id'] = $isRegisteredId;
                 $this->addInfoMessage('Successful registration.');
                 $this->redirect('home', 'index');
             }else{
