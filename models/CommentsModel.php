@@ -33,4 +33,12 @@ class CommentsModel extends BaseModel{
         return $statement->affected_rows > 0;
     }
 
+    public function editComment($content, $comment_id){
+        $statement = self::$db->prepare(
+            "UPDATE comments SET content = ? WHERE id = ?");
+        $statement->bind_param("si", $content, $comment_id);
+        $statement->execute();
+        return true;
+    }
+
 }

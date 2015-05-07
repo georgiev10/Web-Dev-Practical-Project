@@ -48,7 +48,7 @@ Comments:
         $isOwner = true;
     }
     if($isOwner || $this->isAdmin) :?>
-    <a href="/comments/edit/<?=$comment[0]?>/<?=$commentOwner?>"><button>Edit</button></a>
+    <a href="/comments/edit/<?=$this->post[0][0]?>/<?=$comment[0]?>/<?=$commentOwner?>"><button>Edit</button></a>
     <?php endif ?>
     <?php
     if($this->isAdmin) :?>

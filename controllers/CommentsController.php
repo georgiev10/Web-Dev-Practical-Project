@@ -42,7 +42,6 @@ class CommentsController extends BaseController{
         $this->renderView('create');
     }
 
-
     public function deleteConfirm($post_id, $comment_id){
         $this->admin();
         $this->post_id = $post_id;
@@ -60,11 +59,29 @@ class CommentsController extends BaseController{
         }
     }
 
+    public function edit($post_id, $comment_id, $owner_username) {
+        if(!$this->isAdmin && $owner_username != $_SESSION['username']){
+            $this->redirectToUrl('/post/index/' . $post_id);
+        }
 
+        $this->post_id = $post_id;
+        $this->comment_id = $comment_id;
 
+        if($this->isPost){
+            $content = $_POST['content'];
+            if($content == null) {
+                $this->addErrorMessage("Error editing comment.");
+                return $this->renderView('edit');
+            }
 
+            if($this->db->editComment($content, $comment_id)) {
+                $this->addInfoMessage("Comment edited successfully.");
+                $this->redirectToUrl('/post/index/' . $post_id);
+            }else{
+                $this->addErrorMessage("Error editing post.");
+            }
+        }
 
-
-
-
+        $this->renderView('edit');
+    }
 }
