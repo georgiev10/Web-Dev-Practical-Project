@@ -24,8 +24,8 @@ class PostController extends BaseController {
         }
         $_SESSION['comments']=$this->comments;
 
-        $visits =  $this->post[0][4] + 1;
-        $this->db->updateVisits($id, $visits);
+        $updatedVisits =  $this->post[0][4] + 1;
+        $this->db->updateVisits($id, $updatedVisits);
         $this->renderView();
     }
 

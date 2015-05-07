@@ -10,11 +10,11 @@
 
 <?php foreach($this->posts as $post) : ?>
     <div>
-        <a href="/post/index/<?=$post['0']?>" ><?= htmlspecialchars($post['1'])?></a>
+        <a href="/post/index/<?=$post[0]?>" ><?= htmlspecialchars($post[1])?></a>
         <br/>
-        from : <?= htmlspecialchars($post['3']) ?>
+        from : <?= htmlspecialchars($post[3]) ?>
         <br/>
-        <?= htmlspecialchars($post['2']) ?>
+        <?= htmlspecialchars($post[2]) ?>
     </div>
 <?php endforeach ?>
 <a href='/home/index/<?=$this->page<=0 ? $this->page=0 : $this->page - 1?>/<?= $this->pageSize ?>'>Previous</a>
