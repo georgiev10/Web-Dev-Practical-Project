@@ -1,22 +1,55 @@
 body {
+    font-family: 'Sanchez', serif;
+    font-size: 18px;
     padding: 0;
     margin: 0;
 }
 
+
+#app-header {
+    background-color: #76BC3E;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px;
+    color: white;
+    margin: 5px;
+    height: 50px;
+}
+
+
+#app-footer {
+    clear: both;
+    background-color: #76BC3E;
+    text-align: center;
+    padding: 5px;
+    color: white;
+    margin: 5px;
+    height: 50px;
+}
+
+
+
+
+
+
+
+
 body>header {
-     background: #eee;
+     background: #76BC3E;
      padding: 5px;
+     color: white;
  }
 
-body>header>a>img, body>header ul, body>header ul>li {
+body>header ul, body>header ul>li {
     display: inline-block;
     vertical-align: middle;
 }
 
 body>footer {
-    background: #eee;
+    background: #76BC3E;
     padding: 5px;
     text-align: center;
+    color: white;
 }
 
 ul {

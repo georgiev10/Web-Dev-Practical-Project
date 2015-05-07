@@ -39,17 +39,23 @@ abstract class BaseController {
     public function renderView($viewName = 'index', $includeLayout = true)
     {
         if (!$this->isViewRendered) {
+            $leftSidebar= 'views/layouts/' . $this->layoutName . '/leftSidebar.php';
             $viewFileName = 'views/' . $this->controllerName
                 . '/' . $viewName . '.php';
+            $rightSidebar= 'views/layouts/' . $this->layoutName . '/rightSidebar.php';
             if ($includeLayout) {
                 $headerFile = 'views/layouts/' . $this->layoutName . '/header.php';
                 include_once($headerFile);
             }
+            include_once($leftSidebar);
             include_once($viewFileName);
+            include_once($rightSidebar);
+
             if ($includeLayout) {
                 $footerFile = 'views/layouts/' . $this->layoutName . '/footer.php';
                 include_once($footerFile);
             }
+
             $this->isViewRendered = true;
         }
     }
