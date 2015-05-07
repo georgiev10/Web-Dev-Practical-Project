@@ -17,10 +17,6 @@
     <header id="app-header">
         <ul>
             <li><a href="/">Home</a></li>
-            <?php if($this->isLoggedIn):?>
-                <li><a href="/authors">TODO</a></li>
-                <li><a href="/books">TODO</a></li>
-            <?php endif ?>
         </ul>
         <?php if($this->isLoggedIn) :?>
             <div id="logged-in-info">
