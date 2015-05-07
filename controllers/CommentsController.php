@@ -6,10 +6,6 @@ class CommentsController extends BaseController{
     public function onInit() {
         $this->db = new CommentsModel;
     }
-    public function showComments($post_id) {
-        $this->comments = $this->db->getAll($post_id);
-        $this->renderView('showComments', false);
-    }
 
     public function create($post_id) {
         if($this->isPost){
@@ -44,6 +40,24 @@ class CommentsController extends BaseController{
             }
         }
         $this->renderView('create');
+    }
+
+
+    public function deleteConfirm($post_id, $comment_id){
+        $this->admin();
+        $this->post_id = $post_id;
+        $this->comment_id = $comment_id;
+        $this->renderView('deleteConfirm');
+    }
+
+    public function delete($post_id, $comment_id){
+        $this->admin();
+        if ($this->db->deleteCommentsById($comment_id)) {
+            $this->addInfoMessage("Comment deleted successfully.");
+            $this->redirectToUrl('/post/index/' . $post_id);
+        } else {
+            $this->addErrorMessage("Error deleting comment.");
+        }
     }
 
 

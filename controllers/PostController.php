@@ -14,7 +14,11 @@ class PostController extends BaseController {
         $this->comments = $this->db->getAllCommentsByPostId($id);
 
         $owner_username = $this->post[0][5];
-        if($this->isAdmin || $owner_username == $_SESSION['username']){
+        $isOwner = false;
+        if(isset($_SESSION['username'])&& $owner_username == $_SESSION['username'] ){
+            $isOwner = true;
+        }
+        if($this->isAdmin || $isOwner){
            $_SESSION['post']=$this->post;
            $_SESSION['tags']=$this->tags;           
         }

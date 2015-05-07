@@ -26,4 +26,11 @@ class CommentsModel extends BaseModel{
         return $statement->affected_rows > 0;
     }
 
+    public function deleteCommentsById($comment_id){
+        $statement = self::$db->prepare("DELETE FROM comments WHERE id=?");
+        $statement->bind_param("i", $comment_id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+
 }

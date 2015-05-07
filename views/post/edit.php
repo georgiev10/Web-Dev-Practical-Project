@@ -23,7 +23,9 @@ foreach($_SESSION['tags'] as $tag) {
     <input type="tags" name="tags" value="<?= htmlspecialchars($tags);?>" >
     <br/>
     <input type="submit" value="Edit post">
+    <a href="/post/index/<?=$_SESSION['post'][0][0]?>">Cancel</a>
 </form>
+<a href="/post/index/<?=$_SESSION['post'][0][0]?>"><button>Cancel</button></a>
 
 
 

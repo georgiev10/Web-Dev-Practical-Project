@@ -20,4 +20,5 @@ Tags:
 <?php
 if($this->isAdmin) :?>
     <a href="/post/delete/<?=$_SESSION['post'][0][0]?>"><button>Delete</button></a>
+    <a href="/post/index/<?=$_SESSION['post'][0][0]?>"><button>Cancel</button></a>
 <?php endif ?>
