@@ -6,20 +6,35 @@ body {
     margin: 0;
 }
 
-
-#app-header, #app-footer {
+#app-header{
     background-color: #76BC3E;
-    text-align: center;
-    vertical-align: middle;
-    padding: 5px;
+    padding-bottom: 5px;
     padding-top: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
     color: white;
     margin: 5px;
-    height: 50px;
+    margin-left: 15px;
+    margin-right: 15px;
+    min-height: 50px;
     border: 1px solid #D0D0D0;
     box-shadow: rgba(80, 126, 50, 0.5) 0.5px 0.5px 3px;
 }
+#top-menu {
+    float: left;
+}
+#top-menu>a, #logged-in-info>a {
+   color: #ffffff;
+}
+#logged-in-info {
+    display: inline-block;
+    float: right;
+}
 
+#user-in-info {
+    display: inline-block;
+}
 
 #app-footer {
     clear: both;
@@ -32,19 +47,6 @@ body {
     height: 50px;
     border: 1px solid #D0D0D0;
     box-shadow: rgba(80, 126, 50, 0.5) 0.5px 0.5px 3px;
-}
-
-body>header ul, body>header ul>li {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#logged-in-info {
-    float: right;
-}
-
-#logged-in-info form{
-    display: inline-block;
 }
 
 .wrapper {
@@ -135,40 +137,45 @@ input[type="text"], input[type="password"], textarea {
     display: block;
     padding: 5px;
     width: 100%;
-    font-size: 20px;
     appearance: none;
     box-shadow: rgba(80, 126, 50, 0.5) 0.5px 0.5px 3px;
 }
 
 
-/*body>header {*/
-     /*background: #76BC3E;*/
-     /*padding: 5px;*/
-     /*color: white;*/
- /*}*/
+.logRegBox {
+    width: 400px;
+    display: block;
+    background: white;
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 
+ul {
+    list-style-type: none;
+}
 
+li.info {
+    color: green;
+    display: block;
+    vertical-align: middle;
+    text-align: left;
 
-/*body>footer {*/
-    /*background: #76BC3E;*/
-    /*padding: 5px;*/
-    /*text-align: center;*/
-    /*color: white;*/
-/*}*/
+}
 
-/*ul {*/
-    /*list-style-type: none;*/
-    /*padding: 0;*/
-    /*margin: 0;*/
-/*}*/
-/*li.info {*/
-    /*background: #7f7 ;*/
+li.error {
+    color:red;
+    display: block;
+    vertical-align: middle;
+    text-align: left;
+}
 
-/*}*/
-
-/*li.error {*/
-    /*background: #f77 ;*/
-/*}*/
+.title>h4>a {
+    color: #ffffff;
+}
 
 
 

@@ -21,6 +21,7 @@
                     <br/>
                 <?php endif ?>
                 <input type="submit" value="Publish your comment">
+                <a href="/post/index/<?=$this->post_id?>">Cancel</a>
             </form>
         </div>
     </div>

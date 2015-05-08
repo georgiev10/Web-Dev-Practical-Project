@@ -30,6 +30,7 @@ class PostController extends BaseController {
     }
 
     public function create() {
+        $this->title = "Create Post";
         $this->authorise();
         if($this->isPost){
             $user_id = $_SESSION['user_id'];
@@ -65,6 +66,7 @@ class PostController extends BaseController {
     }
 
     public function edit($post_id, $owner_username) {
+        $this->title = "Edit Post";
         if(!$this->isAdmin && $owner_username != $_SESSION['username']){
             $this->redirectToUrl('/post/index/' . $post_id);
         }
@@ -103,6 +105,7 @@ class PostController extends BaseController {
     }
 
     public function deleteConfirm(){
+        $this->title = "Delete Post";
         $this->admin();
         $this->renderView('deleteConfirm');
     }

@@ -8,6 +8,7 @@ class UserController extends BaseController {
     }
 
     public function register(){
+        $this->title = "Register";
         if($this->isPost){
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -40,6 +41,7 @@ class UserController extends BaseController {
     }
 
     public function login(){
+        $this->title = "Login";
         if($this->isPost) {
             $username = $_POST['username'];
             $password = $_POST['password'];

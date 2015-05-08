@@ -1,3 +1,9 @@
 <div class='col-md-2 sidebar'>
-    <p>Left Sidebar</p>
+    <div class="wrapper">
+        <div class="title">
+            <h4>Popular tags</h4>
+        </div>
+    </div>
 </div>
+
+

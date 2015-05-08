@@ -8,6 +8,8 @@ class CommentsController extends BaseController{
     }
 
     public function create($post_id) {
+        $this->title = "Create Comment";
+        $this->post_id = $post_id;
         if($this->isPost){
             $content = $_POST['content'];
             if($content == null) {
@@ -43,6 +45,7 @@ class CommentsController extends BaseController{
     }
 
     public function deleteConfirm($post_id, $comment_id){
+        $this->title = "Delete Comment";
         $this->admin();
         $this->post_id = $post_id;
         $this->comment_id = $comment_id;
@@ -60,6 +63,8 @@ class CommentsController extends BaseController{
     }
 
     public function edit($post_id, $comment_id, $owner_username) {
+        $this->title = "Edit Comment";
+
         if(!$this->isAdmin && $owner_username != $_SESSION['username']){
             $this->redirectToUrl('/post/index/' . $post_id);
         }
