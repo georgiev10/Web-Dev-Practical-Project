@@ -6,6 +6,11 @@ body {
     margin: 0;
 }
 
+
+a {
+    color: #000000;
+}
+
 #app-header{
     background-color: #76BC3E;
     padding-bottom: 5px;
@@ -34,6 +39,10 @@ body {
 
 #user-in-info {
     display: inline-block;
+}
+
+#user-in-info a {
+    color: #ffffff;
 }
 
 #app-footer {
@@ -177,5 +186,28 @@ li.error {
     color: #ffffff;
 }
 
+.tagsBox {
+    display: block;
+    background: white;
+    margin: 15px;
+    word-wrap: break-word;
+    overflow: auto;
+}
 
+.tag{
+    font-size: 14px;
+    max-width: 150px;
+    display: inline-block;
+    float: left;
+    background: #76BC3E;
+    border: 1px solid #76BC3E;
+    border-radius: 3px;
+    margin: 2px;
+    padding: 3px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
 
+.tag a {
+    color: #ffffff;
+}

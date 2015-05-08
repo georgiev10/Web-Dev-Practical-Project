@@ -98,6 +98,22 @@ class PostModel extends BaseModel{
         return $result;
     }
 
+    public function getPostsByTag($from, $size, $tag) {
+        $statement = self::$db->prepare("
+            SELECT p.id, p.title, p.date, u.username
+            FROM posts p
+            JOIN users u ON p.user_id = u.id
+            JOIN posts_tags pt ON p.id = pt.post_id
+            JOIN tags t ON t.id = pt.tag_id
+            WHERE tag = ?
+            ORDER BY p.date DESC LIMIT ?, ?"
+        );
+        $statement->bind_param('sii',$tag, $from, $size);
+        $statement->execute();
+        $result = $statement->get_result()->fetch_all();
+        return $result;
+    }
+
     public function deleteTagsFromPost($post_id){
         $statement = self::$db->prepare("DELETE FROM posts_tags WHERE post_id = ?");
         $statement->bind_param("i", $post_id);

@@ -5,6 +5,8 @@ class CommentsController extends BaseController{
 
     public function onInit() {
         $this->db = new CommentsModel;
+        $this->dbTags = new TagsModel();
+        $this->tagSidebar = $this->dbTags->getPopularTags();
     }
 
     public function create($post_id) {

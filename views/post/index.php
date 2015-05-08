@@ -15,7 +15,7 @@ $visits = $this->post[0][4];
         <div class="boxPost">
             <p><?= htmlspecialchars($content) ?></p>
             <div class="small-text">
-                <span>Posted by <?= htmlspecialchars($postOwner) ?> at <?php echo date_format($date, 'g:ia \o\n l jS F Y')?></span>
+                <span>Posted by <a href="/user/getUserProfile/<?=$postOwner?>"><?= htmlspecialchars($postOwner) ?></a> at <?php echo date_format($date, 'g:ia \o\n l jS F Y')?></span>
                 <span class="right">visits: <?= htmlspecialchars($visits) ?></span>
                 <br/>
                 <span>Tags:
@@ -61,7 +61,8 @@ $visits = $this->post[0][4];
                     $commentQwnerVisitorName = $comment[3];
                     $commentQwnerVisitorEmail = $comment[4];
                     if($commentQwnerRegisteredUser){
-                        $commentQwner = $commentQwnerRegisteredUser;
+                        $commentQwner = '<a href=/user/getUserProfile/' . $commentQwnerRegisteredUser .'/>' .
+                                            htmlspecialchars($commentQwnerRegisteredUser) .'</a>';
                     }else{
                         if($commentQwnerVisitorEmail){
                             $commentQwner = $commentQwnerVisitorName . ' ' . $commentQwnerVisitorEmail;
@@ -73,8 +74,9 @@ $visits = $this->post[0][4];
                 <div class="commentBox">
                     <p><?= htmlspecialchars($content) ?></p>
                     <div class="small-text">
-                        <span>Comment by <?= htmlspecialchars($commentQwner) ?> at
-                            <?php echo date_format($commentPublishDate, 'g:ia \o\n l jS F Y')?></span>
+                        <span>Comment by <?=$commentQwner?> at
+                            <?php echo date_format($commentPublishDate, 'g:ia \o\n l jS F Y')?>
+                        </span>
                     </div>
                     <div class="right">
                         <?php

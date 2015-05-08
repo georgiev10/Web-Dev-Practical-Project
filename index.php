@@ -9,19 +9,23 @@ $requestParts = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 $controllerName = DEFAULT_CONTROLLER;
 if(count($requestParts)>=2 && $requestParts[1] != '') {
     $controllerName = $requestParts[1];
+    if (! preg_match('/^[a-zA-Z0-9_]+$/', $controllerName)) {
+        die('Invalid controller name. Use letters, digits and underscore only.');
+    }
 }
-
-//if(! preg_match("^\\w+$", $controller)) {
-//    die("Controller name invalid.");
-//Да се допълни. Има секюрити проблем!!!
-//}
 
 $action = DEFAULT_ACTION;
 if(count($requestParts)>=3 && $requestParts[2] != '') {
     $action = $requestParts[2];
+    if (! preg_match('/^[a-zA-Z0-9_]+$/', $action)) {
+        die('Invalid action name. Use letters, digits and underscore only.');
+    }
 }
 
-$params = array_slice($requestParts, 3);
+$params = [];
+if (count($requestParts) >= 4) {
+    $params = array_splice($requestParts, 3);
+}
 
 $controllerClassName = ucfirst(strtolower($controllerName)) . 'Controller';
 $controllerFileName = 'controllers/' . $controllerClassName . '.php';

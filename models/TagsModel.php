@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dimitar Georgiev
- * Date: 8.5.2015 г.
- * Time: 17:54 ч.
- */
 
 class TagsModel extends BaseModel{
 
@@ -15,12 +9,11 @@ class TagsModel extends BaseModel{
             FROM posts_tags pt
             JOIN tags t
             ON t.id = pt.tag_id
-            WHERE pt.post_id = ? "
+            GROUP BY tag_id
+            ORDER BY count(tag_id) DESC, tag_id DESC
+            LIMIT 0, 50 "
         );
-        $statement->bind_param("i", $post_id);
-        $statement->execute();
-        $result = $statement->get_result()->fetch_all();
-        return $result;
+        return $statement->fetch_all();
     }
-
 }
+

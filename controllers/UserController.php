@@ -5,6 +5,8 @@ class UserController extends BaseController {
 
     public function onInit() {
         $this->db = new UserModel();
+        $this->dbTags = new TagsModel();
+        $this->tagSidebar = $this->dbTags->getPopularTags();
     }
 
     public function register(){
@@ -71,5 +73,13 @@ class UserController extends BaseController {
         $this->addInfoMessage('Successful logout.');
         $this->redirect('home', 'index');
     }
+
+    public function getUserProfile($username){
+        $this->userProfile = $this->db->getUserProfile($username);
+        $this->renderView('getUserProfile');
+    }
+
+
+
 
 }

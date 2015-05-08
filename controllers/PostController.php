@@ -6,6 +6,8 @@ class PostController extends BaseController {
     public function onInit() {
         $this->title = "Post";
         $this->db = new PostModel;
+        $this->dbTags = new TagsModel();
+        $this->tagSidebar = $this->dbTags->getPopularTags();
     }
 
     public function index($id) {
@@ -27,6 +29,20 @@ class PostController extends BaseController {
         $updatedVisits =  $this->post[0][4] + 1;
         $this->db->updateVisits($id, $updatedVisits);
         $this->renderView();
+    }
+
+    public function getPostsByTag($page = 0, $pageSize = 4, $tag){
+        $this->title = "Get Post by Tag";
+        if(!$tag){
+            $tag = $_GET['tag'];
+        }
+        $this->tag = $tag;
+        $from = $page * $pageSize;
+        $this->page = $page;
+        $this->pageSize = $pageSize;
+        $this->posts = $this->db->getPostsByTag($from, $pageSize, $tag);
+        $this->renderView('PostsByTag');
+
     }
 
     public function create() {
@@ -133,10 +149,5 @@ class PostController extends BaseController {
             $this->db->insertTagsByPost($tag_id, $post_id );
         }
     }
-
-
-
-
-
 
 }
