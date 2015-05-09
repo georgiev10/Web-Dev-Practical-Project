@@ -81,7 +81,12 @@ class UserModel extends BaseModel {
         return $statement->affected_rows > 0;
     }
 
-
-
+    public function changePass($password, $id){
+        $hash_pass = password_hash($password, PASSWORD_BCRYPT);
+        $statement = self::$db->prepare("UPDATE users SET passwordHash=? WHERE id=?");
+        $statement->bind_param("si", $hash_pass, $id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
 
 }

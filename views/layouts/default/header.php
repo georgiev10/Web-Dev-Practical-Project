@@ -21,8 +21,12 @@
             <?php if($this->isLoggedIn) :?>
                 <div id="user-in-info">
                     <span>Hello,
-                        <?php if($this->isAdmin){echo(' admin ');}?>
-                        <a href="/user/profile/<?=$_SESSION['username']?>"><?php echo ($_SESSION['username'])?></a>
+                        <?php if($this->isAdmin):?>
+                            <a href="/user/profile/<?=$_SESSION['username']?>" style="color: blueviolet"><?php echo ($_SESSION['username'])?></a>
+                        <?php endif ?>
+                        <?php if(!$this->isAdmin):?>
+                            <a href="/user/profile/<?=$_SESSION['username']?>"><?php echo ($_SESSION['username'])?></a>
+                        <?php endif ?>
                     </span>
                 </div>
             <?php endif ?>

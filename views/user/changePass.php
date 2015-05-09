@@ -4,7 +4,7 @@
             <h4>Edit User Profile</h4>
         </div>
         <div class="logRegBox">
-            <form action="/user/changePassConfirm" method="POST">
+            <form action="/user/changePass" method="POST">
                 <label for="new-password">New Password</label>
                 <input type="password" name="new-password" id="new-password">
                 <br/>

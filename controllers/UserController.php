@@ -162,8 +162,27 @@ class UserController extends BaseController {
     }
 
     public function changePass(){
+        $this->authorise();
         if($this->isPost){
-
+            $id = $_POST['user_id'];
+            $password = $_POST['new-password'];
+            $repeatedPassword = $_POST['repeat-new-password'];
+            if($password == null || strlen($password) < 3) {
+                $this->addErrorMessage('Password is invalid!');
+                $this->redirectToUrl('/user/changePassConfirm');
+            }
+            if($password != $repeatedPassword) {
+                $this->addErrorMessage('Repeated password is different!');
+                $this->redirectToUrl('/user/changePassConfirm');
+            }
+            $isChangedPass = $this->db->changePass($password, $id);
+            if($isChangedPass){
+                $this->addInfoMessage('Successful password changed.');
+                $this->redirectToUrl('/user/profile/' . $_SESSION['username']);
+            }else{
+                $this->addErrorMessage('Failed password changed!');
+                $this->redirectToUrl('/user/changePassConfirm');
+            }
         }
     }
 

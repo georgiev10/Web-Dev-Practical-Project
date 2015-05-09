@@ -25,6 +25,7 @@ a {
     min-height: 50px;
     border: 1px solid #D0D0D0;
     box-shadow: rgba(80, 126, 50, 0.5) 0.5px 0.5px 3px;
+    font-size: 18px;
 }
 #top-menu {
     float: left;
