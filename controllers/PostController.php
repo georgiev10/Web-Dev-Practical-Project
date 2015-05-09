@@ -43,7 +43,6 @@ class PostController extends BaseController {
         $this->pageSize = $pageSize;
         $this->posts = $this->db->getPostsByTag($from, $pageSize, $tag);
         $this->renderView('PostsByTag');
-
     }
 
     public function create() {
@@ -78,7 +77,6 @@ class PostController extends BaseController {
                 $this->addErrorMessage("Error creating post.");
             }
         }
-
         $this->renderView('create');
     }
 
@@ -117,7 +115,6 @@ class PostController extends BaseController {
                 $this->addErrorMessage("Error editing post.");
             }
         }
-
         $this->renderView('edit');
     }
 
