@@ -11,7 +11,7 @@ class TagsModel extends BaseModel{
             ON t.id = pt.tag_id
             GROUP BY tag_id
             ORDER BY count(tag_id) DESC, tag_id DESC
-            LIMIT 0, 50 "
+            LIMIT 0, 20 "
         );
         return $statement->fetch_all();
     }
@@ -42,8 +42,11 @@ class TagsModel extends BaseModel{
         $statement = self::$db->prepare("SELECT id FROM tags WHERE tag=?");
         $statement->bind_param("s", $tag);
         $statement->execute();
-        $result = $statement->get_result()->fetch_all();
-        return $result[0][0];
+        $result = $statement->get_result()->fetch_all(MYSQL_ASSOC);
+        if(isset($result[0]['id'])){
+            return $result[0]['id'];
+        }
+            return false;
     }
 
     public function createTag($tag) {

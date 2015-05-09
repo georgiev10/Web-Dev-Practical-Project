@@ -59,6 +59,10 @@ a {
     box-shadow: rgba(80, 126, 50, 0.5) 0.5px 0.5px 3px;
 }
 
+#app-content {
+    min-height: 545px;
+}
+
 .wrapper {
     width: 100%;
     display: block;
@@ -172,7 +176,7 @@ li.info {
     color: green;
     display: block;
     vertical-align: middle;
-    text-align: left;
+    text-align: center;
 
 }
 
@@ -180,7 +184,7 @@ li.error {
     color:red;
     display: block;
     vertical-align: middle;
-    text-align: left;
+    text-align: center;
 }
 
 .title>h4>a {

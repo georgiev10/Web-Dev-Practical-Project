@@ -24,7 +24,7 @@ class UserController extends BaseController {
                 $this->addErrorMessage('Password is invalid!');
                 $this->redirect('user', 'register');
             }
-            if($email == null || strlen($email) < 8) {
+            if($email == null || strlen($email) < 6) {
                 $this->addErrorMessage('Email is invalid!');
                 $this->redirect('user', 'register');
             }
@@ -113,7 +113,7 @@ class UserController extends BaseController {
             $this->addErrorMessage('Username is invalid!');
             $this->redirectToUrl('/user/profile/' . $username);
         }
-        if($newEmail == null || strlen($newEmail) < 8) {
+        if($newEmail == null || strlen($newEmail) < 6) {
             $this->addErrorMessage('Email is invalid!');
             $this->redirectToUrl('/user/profile/' . $username);
         }

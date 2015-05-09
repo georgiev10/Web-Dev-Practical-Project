@@ -72,7 +72,7 @@ class PostController extends BaseController {
             if($post_id) {
                 $this->insertTags($tags, $post_id);
                 $this->addInfoMessage("Post created successfully.");
-                $this->redirectToUrl('/');
+                $this->redirectToUrl('/post/index/' .$post_id);
             }else{
                 $this->addErrorMessage("Error creating post.");
             }
@@ -110,7 +110,7 @@ class PostController extends BaseController {
                 unset($_SESSION['post']);
                 unset($_SESSION['tags']);
                 $this->addInfoMessage("Post edited successfully.");
-                $this->redirectToUrl('/post/index/' . $post_id);
+                return $this->redirectToUrl('/post/index/' . $post_id);
             }else{
                 $this->addErrorMessage("Error editing post.");
             }
@@ -130,7 +130,7 @@ class PostController extends BaseController {
         $this->dbTags->deleteTagsFromPost($post_id);
         if ($this->db->deletePost($post_id)) {
             $this->addInfoMessage("Post deleted successfully.");
-            $this->redirectToUrl('/');
+            return $this->redirectToUrl('/');
         } else {
             $this->addErrorMessage("Error deleting post.");
         }
@@ -138,7 +138,7 @@ class PostController extends BaseController {
 
     function insertTags($tags, $post_id){
         foreach($tags as $tag){
-            $idExistingTag = $this->dbTags->getIdExistingTag($tag);
+            $idExistingTag = $this->dbTags->getIdExistingTag(strtolower($tag));
             if($idExistingTag){
                 $tag_id = $idExistingTag;
             }else{
@@ -147,5 +147,9 @@ class PostController extends BaseController {
             $this->dbTags->insertTagsByPost($tag_id, $post_id);
         }
     }
+
+
+
+
 
 }
