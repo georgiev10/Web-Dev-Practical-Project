@@ -10,7 +10,7 @@
                         <p><a href="/post/index/<?=$post[0]?>" ><?= htmlspecialchars($post[1])?></a></p>
                         <div class="small-text">
                             <?php $date = date_create($post[2]);?>
-                            <span>Posted by <a href="/user/getUserProfile/<?=$post[3]?>"><?= htmlspecialchars($post[3])?></a> at <?php echo date_format($date, 'g:ia \o\n l') ?></span>
+                            <span>Posted by <a href="/user/profile/<?=$post[3]?>"><?= htmlspecialchars($post[3])?></a> at <?php echo date_format($date, 'g:ia \o\n l') ?></span>
                             <br/>
                             <span><?php echo date_format($date, 'jS F Y') ?></span>
                         </div>

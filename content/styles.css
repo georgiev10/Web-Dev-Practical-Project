@@ -147,12 +147,12 @@ input[type="text"], input[type="password"], textarea {
     padding: 5px;
     width: 100%;
     appearance: none;
-    box-shadow: rgba(80, 126, 50, 0.5) 0.5px 0.5px 3px;
+    border: solid 1px #c9c9c9;
+    transition: border 0.3s;
 }
 
-
 .logRegBox {
-    width: 400px;
+    max-width: 400px;
     display: block;
     background: white;
     margin: 0 auto;

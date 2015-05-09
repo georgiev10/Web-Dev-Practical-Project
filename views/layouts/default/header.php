@@ -22,7 +22,7 @@
                 <div id="user-in-info">
                     <span>Hello,
                         <?php if($this->isAdmin){echo(' admin ');}?>
-                        <a href="/user/getUserProfile/<?=$_SESSION['username']?>"><?php echo ($_SESSION['username'])?></a>
+                        <a href="/user/profile/<?=$_SESSION['username']?>"><?php echo ($_SESSION['username'])?></a>
                     </span>
                 </div>
             <?php endif ?>
