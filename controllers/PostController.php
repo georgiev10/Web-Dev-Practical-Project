@@ -7,13 +7,14 @@ class PostController extends BaseController {
         $this->title = "Post";
         $this->db = new PostModel;
         $this->dbTags = new TagsModel();
+        $this->dbComments = new CommentsModel();
         $this->tagSidebar = $this->dbTags->getPopularTags();
     }
 
     public function index($id) {
         $this->post = $this->db->getPostById($id);
-        $this->tags = $this->db->getTagsByPostId($id);
-        $this->comments = $this->db->getAllCommentsByPostId($id);
+        $this->tags = $this->dbTags->getTagsByPostId($id);
+        $this->comments = $this->dbComments->getAllCommentsByPostId($id);
 
         $owner_username = $this->post[0][5];
         $isOwner = false;
@@ -106,7 +107,7 @@ class PostController extends BaseController {
             }
 
             if($this->db->editPost($title, $content, $post_id )) {
-                $this->db->deleteTagsFromPost($post_id);
+                $this->dbTags->deleteTagsFromPost($post_id);
                 $this->insertTags($tags, $post_id);
                 unset($_SESSION['post']);
                 unset($_SESSION['tags']);
@@ -128,8 +129,8 @@ class PostController extends BaseController {
 
     public function delete($post_id){
         $this->admin();
-        $this->db->deleteCommentsByPostId($post_id);
-        $this->db->deleteTagsFromPost($post_id);
+        $this->dbComments->deleteCommentsByPostId($post_id);
+        $this->dbTags->deleteTagsFromPost($post_id);
         if ($this->db->deletePost($post_id)) {
             $this->addInfoMessage("Post deleted successfully.");
             $this->redirectToUrl('/');
@@ -138,15 +139,15 @@ class PostController extends BaseController {
         }
     }
 
-    public function insertTags($tags, $post_id){
+    function insertTags($tags, $post_id){
         foreach($tags as $tag){
-            $idExistingTag = $this->db->getIdExistingTag($tag);
+            $idExistingTag = $this->dbTags->getIdExistingTag($tag);
             if($idExistingTag){
                 $tag_id = $idExistingTag;
             }else{
-                $tag_id = $this->db->insertTags(strtolower($tag));
+                $tag_id = $this->dbTags->createTag(strtolower($tag));
             }
-            $this->db->insertTagsByPost($tag_id, $post_id );
+            $this->dbTags->insertTagsByPost($tag_id, $post_id);
         }
     }
 

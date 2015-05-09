@@ -5,7 +5,7 @@
         </div>
         <div class="tagsBox">
             <form method="get" action="/post/getPostsByTag/0/4/">
-                <input type="text" name="tag" id="tag">
+                <input type="text" name="tag" id="tag" placeholder="Enter a tag...">
                 <br/>
                 <input type="submit" value="Search">
             </form>
